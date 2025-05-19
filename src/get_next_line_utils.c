@@ -6,41 +6,29 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/16 00:51:09 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:47:23 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /**
- * Allocates memory for `nmemb` elements of `size` bytes, initialized with \0.
+ * Calculates the amount of characters in string `s`.
  *
- * Guards against overflow, returning NULL.
- *
- * @param nmemb Number of elements.
- * @param size Size of an element in bytes.
- * @return Pointer to the beginning of the allocated memory area, or `NULL`
- * if allocation failed.
+ * @param s Source string.
+ * @return The length of the string `s`.
  */
-
- /*
-void	*ft_calloc(size_t nmemb, size_t size)
+size_t	ft_linelen(const char *s)
 {
-	void			*ptr;
-	size_t			bytes;
-	unsigned char	*str;
+	size_t	len;
 
-	if (size && nmemb > SIZE_MAX / size)
-		return (NULL);
-	bytes = nmemb * size;
-	ptr = malloc(bytes);
-	if (!ptr)
-		return (NULL);
-	str = (unsigned char *)ptr;
-	while (bytes--)
-		str[bytes] = '\0';
-	return (ptr);
-}*/
+	if (!s)
+		return (0);
+	len = 0;
+	while (*s++ && len < BUFFER_SIZE && *s != '\n')
+		++len;
+	return (len);
+}
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
@@ -56,16 +44,28 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*strjoin(char *s1, char *s2, int i)
+/**
+ * Allocates memory and copies characters from strings `s1` and `s2`.
+ *
+ * @param s1 Source string 1.
+ * @param s2 Source string 2.
+ * @return New string, which is the result of concatenating `s1` and `s2`.
+ */
+char	*ft_strjoin(char*s1, char const *s2)
 {
 	char	*str;
+	size_t	len1;
+	size_t	len2;
 
-	str = malloc(i * BUFFER_SIZE);
-	if (str)
-	{
-		ft_memcpy(str, s1, (i - 1) * BUFFER_SIZE);
-		ft_memcpy(&str[(i - 1) * BUFFER_SIZE], s2, BUFFER_SIZE);
-	}
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_linelen(s1);
+	len2 = ft_linelen(s2);
+	str = malloc(len1 + len2 + 1);
+	if (!str)
+		return (NULL);
+	ft_memcpy(str, s1, len1);
+	ft_memcpy(&str[len1], s2, len2);
 	free(s1);
 	return (str);
 }
