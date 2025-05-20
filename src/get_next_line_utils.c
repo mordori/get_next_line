@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/19 20:47:23 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:06:46 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
  * @param s Source string.
  * @return The length of the string `s`.
  */
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	if (!s)
+		return (0);
+	len = 0;
+	while (*s++)
+		++len;
+	return (len);
+}
+
 size_t	ft_linelen(const char *s)
 {
 	size_t	len;
@@ -25,9 +37,14 @@ size_t	ft_linelen(const char *s)
 	if (!s)
 		return (0);
 	len = 0;
-	while (*s++ && len < BUFFER_SIZE && *s != '\n')
+	while (*s)
+	{
+		if (*s == '\n')
+			return (len);
 		++len;
-	return (len);
+		++s;
+	}
+	return (0);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
@@ -42,6 +59,26 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	while (n--)
 		*d++ = *s++;
 	return (dest);
+}
+
+/**
+ * Fills `n` bytes of the memory area `s` with byte `c`.
+ *
+ * @param s Source memory area.
+ * @param c Byte to be written with.
+ * @param n Number of bytes to be written.
+ * @return Pointer to modified `s`.
+ */
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*d;
+
+	if (!s && n)
+		return (NULL);
+	d = (unsigned char *)s;
+	while (n--)
+		*d++ = (unsigned char)c;
+	return (s);
 }
 
 /**
@@ -69,5 +106,3 @@ char	*ft_strjoin(char*s1, char const *s2)
 	free(s1);
 	return (str);
 }
-
-

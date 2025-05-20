@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/19 20:59:19 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:18:16 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,32 @@
 #include <stdio.h>
 
 
+int	ft_cpybuf(char **line, char *buf)
+{
+	size_t	buf_len;
 
+	buf_len = ft_linelen(buf);
+	*line = malloc((buf_len + 1) * sizeof (char));
+	if (!*line)
+		return (0);
+	*line = ft_memcpy(*line, buf, buf_len + 1);
+	*line[buf_len] = '\0';
+	return (1);
+}
+
+void	ft_trimbuf(char *buf)
+{
+	size_t	buf_len;
+
+	buf_len = ft_linelen(buf);
+	if (buf_len)
+	{
+		ft_memcpy(buf, buf + buf_len, BUFFER_SIZE - buf_len);
+		ft_memset(buf + BUFFER_SIZE - buf_len, 0, buf_len);
+	}
+	else
+		ft_memset(buf, 0, BUFFER_SIZE);
+}
 
 /**
  * Returns a line read from file descriptor `fd`.
@@ -27,39 +52,41 @@
  */
 char	*get_next_line(int fd)
 {
-	static char	buf[BUFFER_SIZE];
-	t_vars		vars;
-	size_t		len;
+	static char	buf[BUFFER_SIZE + 1];
+	char		*line;
+	size_t		buf_len;
+	size_t		line_len;
 
-	if (fd < 1)
+	if (fd < 1 || BUFFER_SIZE < 1)
 		return (NULL);
-
-	vars.str = malloc(1);
-
+	line = NULL;
+	if (!ft_cpybuf(&line, buf))
+		return (NULL);
+	line_len = ft_linelen(line);
+	if (line[line_len] == '\n')
+	{
+		ft_trimbuf(buf);
+		return (line);
+	}
 	while (1)
 	{
-		vars.len = read(fd, buf, BUFFER_SIZE);
-		if (vars.len < 1)
-			return (NULL);
-
-		vars.str = ft_strjoin(vars.str, buf);
-		if (!vars.str)
-			return (NULL);
-
-		len = ft_linelen(buf);
-		if (buf[len] == '\n')
+		buf_len = read(fd, buf, BUFFER_SIZE);
+		if (buf_len < 1)
 		{
-			return (vars.str);
+			free(line);
+			return (NULL);
+		}
+		line = ft_strjoin(line, buf);
+		if (!line)
+			return (NULL);
+		if (line[ft_linelen(line) - 1] == '\n')
+		{
+			ft_trimbuf(buf);
+			return (line);
 		}
 	}
-
-	return (vars.str);
+	return (NULL);
 }
-
-// Malloc leftovers
-// Read to buffer
-// Append until newline
-//
 
 #include <fcntl.h>
 
@@ -72,9 +99,9 @@ int	main(void)
 
 	while ((str = get_next_line(fd)))
 	{
-		write (1, "\n", 2);
+		write (1, "\n", 1);
 		write (1, str, ft_linelen(str));
-		write (1, "\n", 2);
+		write (1, "\n", 1);
 		free(str);
 	}
 
