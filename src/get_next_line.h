@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:49 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/20 13:37:03 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:50:45 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ size_t	ft_strlen(const char *s);
 size_t	ft_linelen(const char *s);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+size_t	ft_strlinelen(const char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/20 14:18:16 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:38:34 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@ int	ft_cpybuf(char **line, char *buf)
 {
 	size_t	buf_len;
 
-	buf_len = ft_linelen(buf);
+	buf_len = ft_strlinelen(buf);
 	*line = malloc((buf_len + 1) * sizeof (char));
-	if (!*line)
+	if (!(*line))
 		return (0);
-	*line = ft_memcpy(*line, buf, buf_len + 1);
-	*line[buf_len] = '\0';
+	*line = ft_memcpy(*line, buf, buf_len);
+	(*line)[buf_len] = '\0';
 	return (1);
 }
 
 void	ft_trimbuf(char *buf)
 {
 	size_t	buf_len;
+
+
 
 	buf_len = ft_linelen(buf);
 	if (buf_len)
@@ -62,10 +64,18 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (!ft_cpybuf(&line, buf))
 		return (NULL);
+
 	line_len = ft_linelen(line);
-	if (line[line_len] == '\n')
+
+	printf("linelen:%zu\n", line_len);
+	fflush(stdout);
+
+
+	if (line_len)
 	{
 		ft_trimbuf(buf);
+		printf("BUFreturn:%s\n", buf);
+		fflush(stdout);
 		return (line);
 	}
 	while (1)
@@ -100,7 +110,7 @@ int	main(void)
 	while ((str = get_next_line(fd)))
 	{
 		write (1, "\n", 1);
-		write (1, str, ft_linelen(str));
+		write (1, str, ft_strlen(str));
 		write (1, "\n", 1);
 		free(str);
 	}

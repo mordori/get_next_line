@@ -6,11 +6,13 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/20 14:06:46 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:26:16 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#include <stdio.h>
 
 /**
  * Calculates the amount of characters in string `s`.
@@ -30,6 +32,18 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
+size_t	ft_strlinelen(const char *s)
+{
+	size_t	len;
+
+	if (!s)
+		return (0);
+	len = 0;
+	while (*s != '\n' && *s++)
+		++len;
+	return (len);
+}
+
 size_t	ft_linelen(const char *s)
 {
 	size_t	len;
@@ -39,9 +53,9 @@ size_t	ft_linelen(const char *s)
 	len = 0;
 	while (*s)
 	{
+		++len;
 		if (*s == '\n')
 			return (len);
-		++len;
 		++s;
 	}
 	return (0);
@@ -96,8 +110,10 @@ char	*ft_strjoin(char*s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	len1 = ft_linelen(s1);
+	len1 = ft_strlen(s1);
 	len2 = ft_linelen(s2);
+	if (!len2)
+		len2 = BUFFER_SIZE;
 	str = malloc(len1 + len2 + 1);
 	if (!str)
 		return (NULL);
