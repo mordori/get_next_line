@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/20 17:38:34 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:19:28 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,23 @@
 #include <stdio.h>
 
 
-int	ft_cpybuf(char **line, char *buf)
+char	*ft_cpybuf(char *buf)
 {
 	size_t	buf_len;
+	char	*line;
 
 	buf_len = ft_strlinelen(buf);
-	*line = malloc((buf_len + 1) * sizeof (char));
-	if (!(*line))
-		return (0);
-	*line = ft_memcpy(*line, buf, buf_len);
-	(*line)[buf_len] = '\0';
-	return (1);
+	line = malloc((buf_len + 1) * sizeof (char));
+	if (!line)
+		return (NULL);
+	line = ft_memcpy(line, buf, buf_len);
+	line[buf_len] = '\0';
+	return (line);
 }
 
 void	ft_trimbuf(char *buf)
 {
-	size_t	buf_len;
 
-
-
-	buf_len = ft_linelen(buf);
-	if (buf_len)
-	{
-		ft_memcpy(buf, buf + buf_len, BUFFER_SIZE - buf_len);
-		ft_memset(buf + BUFFER_SIZE - buf_len, 0, buf_len);
-	}
-	else
-		ft_memset(buf, 0, BUFFER_SIZE);
 }
 
 /**
@@ -57,25 +47,15 @@ char	*get_next_line(int fd)
 	static char	buf[BUFFER_SIZE + 1];
 	char		*line;
 	size_t		buf_len;
-	size_t		line_len;
 
-	if (fd < 1 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	line = NULL;
-	if (!ft_cpybuf(&line, buf))
+	line = ft_cpybuf(buf);
+	if (!line)
 		return (NULL);
-
-	line_len = ft_linelen(line);
-
-	printf("linelen:%zu\n", line_len);
-	fflush(stdout);
-
-
-	if (line_len)
+	if (ft_strchr(buf, '\n'))
 	{
 		ft_trimbuf(buf);
-		printf("BUFreturn:%s\n", buf);
-		fflush(stdout);
 		return (line);
 	}
 	while (1)
@@ -89,7 +69,7 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, buf);
 		if (!line)
 			return (NULL);
-		if (line[ft_linelen(line) - 1] == '\n')
+		if (ft_strchr(line, '\n'))
 		{
 			ft_trimbuf(buf);
 			return (line);
@@ -109,9 +89,9 @@ int	main(void)
 
 	while ((str = get_next_line(fd)))
 	{
-		write (1, "\n", 1);
-		write (1, str, ft_strlen(str));
-		write (1, "\n", 1);
+		//write (1, "\n", 1);
+		write (1, str, ft_strlinelen(str));
+		//write (1, "\n", 1);
 		free(str);
 	}
 

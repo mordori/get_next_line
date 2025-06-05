@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/20 17:26:16 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:20:21 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,26 @@
 #include <stdio.h>
 
 /**
- * Calculates the amount of characters in string `s`.
+ * Attempts to find the first occurrance of character `c` in `s`.
  *
  * @param s Source string.
- * @return The length of the string `s`.
+ * @param c Character to be searched for.
+ * @return Pointer to the first occurrence of `c` in `s`,
+ * or `NULL` if not found.
  */
-size_t	ft_strlen(const char *s)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t	len;
-
 	if (!s)
-		return (0);
-	len = 0;
-	while (*s++)
-		++len;
-	return (len);
+		return (NULL);
+	c = (unsigned char)c;
+	while (*s && (const unsigned char)*s != c)
+		++s;
+	if ((const unsigned char)*s == c)
+		return ((char *)s);
+	return (NULL);
 }
 
 size_t	ft_strlinelen(const char *s)
-{
-	size_t	len;
-
-	if (!s)
-		return (0);
-	len = 0;
-	while (*s != '\n' && *s++)
-		++len;
-	return (len);
-}
-
-size_t	ft_linelen(const char *s)
 {
 	size_t	len;
 
@@ -55,10 +45,10 @@ size_t	ft_linelen(const char *s)
 	{
 		++len;
 		if (*s == '\n')
-			return (len);
-		++s;
+			break;
+		s++;
 	}
-	return (0);
+	return (len);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
@@ -110,8 +100,8 @@ char	*ft_strjoin(char*s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_linelen(s2);
+	len1 = ft_strlinelen(s1);
+	len2 = ft_strlinelen(s2);
 	if (!len2)
 		len2 = BUFFER_SIZE;
 	str = malloc(len1 + len2 + 1);
@@ -122,3 +112,30 @@ char	*ft_strjoin(char*s1, char const *s2)
 	free(s1);
 	return (str);
 }
+
+/**
+ * Allocates memory and returns a substring from the string `s`.
+ *
+ * @param s Source string.
+ * @param start Starting index for the substring in `s`.
+ * @param len Maximum length of the substring.
+ * @return New substring from `s`.
+ */
+/*
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	if (ft_strlen(s) > start)
+		while (s[start + i] && i < len)
+			++i;
+	sub = ft_calloc(i + 1, sizeof (char));
+	if (sub && i)
+		ft_memcpy(sub, &s[start], i);
+	return (sub);
+}
+	*/
