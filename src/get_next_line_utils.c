@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/05/22 15:20:21 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:37:07 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-size_t	ft_strlinelen(const char *s)
+size_t	ft_linelen(const char *s)
 {
 	size_t	len;
 
@@ -46,7 +46,7 @@ size_t	ft_strlinelen(const char *s)
 		++len;
 		if (*s == '\n')
 			break;
-		s++;
+		++s;
 	}
 	return (len);
 }
@@ -92,7 +92,7 @@ void	*ft_memset(void *s, int c, size_t n)
  * @param s2 Source string 2.
  * @return New string, which is the result of concatenating `s1` and `s2`.
  */
-char	*ft_strjoin(char*s1, char const *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
 	char	*str;
 	size_t	len1;
@@ -100,10 +100,8 @@ char	*ft_strjoin(char*s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	len1 = ft_strlinelen(s1);
-	len2 = ft_strlinelen(s2);
-	if (!len2)
-		len2 = BUFFER_SIZE;
+	len1 = ft_linelen(s1);
+	len2 = ft_linelen(s2);
 	str = malloc(len1 + len2 + 1);
 	if (!str)
 		return (NULL);
@@ -121,7 +119,6 @@ char	*ft_strjoin(char*s1, char const *s2)
  * @param len Maximum length of the substring.
  * @return New substring from `s`.
  */
-/*
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
@@ -130,12 +127,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	i = 0;
-	if (ft_strlen(s) > start)
+	if (ft_linelen(s) > start)
 		while (s[start + i] && i < len)
 			++i;
-	sub = ft_calloc(i + 1, sizeof (char));
+	sub = malloc(i + 1 * sizeof (char));
 	if (sub && i)
 		ft_memcpy(sub, &s[start], i);
 	return (sub);
 }
-	*/
