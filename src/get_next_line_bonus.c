@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/11 16:28:46 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:03:02 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,28 @@ static inline void	ft_trimbuf(char *buf);
  */
 char	*get_next_line(int fd)
 {
-	static char	buf[BUFFER_SIZE + 1];
+	static char	buf[MAX_FD][BUFFER_SIZE + 1];
 	char		*line;
 	ssize_t		bytes;
 
-	line = ft_cpybuf(buf);
-	if (!line || fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE < 1)
+		return (NULL);
+	line = ft_cpybuf(buf[fd]);
+	if (!line)
 		return (free(line), NULL);
-	if (buf[0] && buf[ft_linelen(buf) - 1] == '\n')
-		return (ft_trimbuf(buf), line);
+	if (buf[fd][0] && buf[fd][ft_linelen(buf[fd]) - 1] == '\n')
+		return (ft_trimbuf(buf[fd]), line);
 	while (1)
 	{
-		bytes = read(fd, buf, BUFFER_SIZE);
+		bytes = read(fd, buf[fd], BUFFER_SIZE);
 		if (bytes == -1 || (bytes == 0 && !line[0]))
 			return (free(line), NULL);
-		buf[bytes] = '\0';
-		line = ft_strjoin(line, buf);
+		buf[fd][bytes] = '\0';
+		line = ft_strjoin(line, buf[fd]);
 		if (!line)
 			return (NULL);
 		if (line[ft_linelen(line) - 1] == '\n' || bytes == 0)
-			return (ft_trimbuf(buf), line);
+			return (ft_trimbuf(buf[fd]), line);
 	}
 }
 
