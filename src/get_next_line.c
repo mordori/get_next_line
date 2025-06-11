@@ -6,17 +6,16 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/10 20:00:06 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/11 03:31:10 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/// REMOVE
-#include <stdio.h>
-
 static char	*ft_cpybuf(char *buf);
-static void	ft_trimbuf(char *buf);
+static void	ft_trimbuf(char *buf, ssize_t bytes);
+
+#include <stdio.h>
 
 /**
  * Returns a line read from file descriptor `fd`.
@@ -29,53 +28,27 @@ char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE + 1];
 	char		*line;
-	size_t		buf_len;
+	ssize_t		bytes;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (NULL);
 	line = ft_cpybuf(buf);
-	if (!line)
-		return (NULL);
-	if (ft_strchr(line, '\n'))
-	{
-		ft_trimbuf(buf);
-		return (line);
-	}
+	if (!line || fd < 0 || BUFFER_SIZE < 1)
+		return (free(line), NULL);
+	if (buf[0] && buf[ft_linelen(buf) - 1] == '\n')
+		return (ft_trimbuf(buf, BUFFER_SIZE), line);
 	while (1)
 	{
-		buf_len = read(fd, buf, BUFFER_SIZE);
-		if (buf_len < 1)
-		{
-			free(line);
-			return (NULL);
-		}
+		bytes = read(fd, buf, BUFFER_SIZE);
+		if (bytes == 0 && line[0])
+			return (ft_trimbuf(buf, bytes), line);
+		if (bytes <= 0)
+			return (free(line), NULL);
+		buf[bytes] = '\0';
 		line = ft_strjoin(line, buf);
 		if (!line)
 			return (NULL);
-		if (ft_strchr(line, '\n'))
-		{
-			ft_trimbuf(buf);
-			return (line);
-		}
+		if (line[0] && line[ft_linelen(line) - 1] == '\n')
+			return (ft_trimbuf(buf, bytes), line);
 	}
-	return (NULL);
-}
-
-#include <fcntl.h>
-
-int	main(void)
-{
-	int		fd;
-	char	*file = "file.txt";
-	fd = open(file, O_RDONLY);
-	char	*str;
-
-	while ((str = get_next_line(fd)))
-	{
-		write (1, str, ft_linelen(str));
-		free(str);
-	}
-	return (0);
 }
 
 static char	*ft_cpybuf(char *buf)
@@ -92,12 +65,12 @@ static char	*ft_cpybuf(char *buf)
 	return (line);
 }
 
-static void	ft_trimbuf(char *buf)
+static void	ft_trimbuf(char *buf, ssize_t bytes)
 {
 	size_t	line_len;
+	(void)bytes;
 
 	line_len = ft_linelen(buf);
-	printf("LINELEN :%zu\n", line_len);
 	buf = ft_memcpy(buf, buf + line_len, BUFFER_SIZE - line_len);
 	buf[BUFFER_SIZE - line_len] = '\0';
 }
