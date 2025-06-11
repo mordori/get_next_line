@@ -6,11 +6,12 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 21:29:34 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/11 03:18:43 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:20:27 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+#include <stdio.h>
 #include "get_next_line.h"
 
 int	main(void)
@@ -22,7 +23,7 @@ int	main(void)
 
 	while ((str = get_next_line(fd)))
 	{
-		write (1, str, ft_linelen(str));
+		printf("%s", str);
 		free(str);
 	}
 	close(fd);

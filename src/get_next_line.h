@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:49 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/11 03:18:15 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:59:47 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define GET_NEXT_LINE_H
 
 #include <stdlib.h>	// malloc, free
-#include <unistd.h>	// read
-#include <stdint.h>
+#include <unistd.h>	// read, ssize_t
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10000000
+# define BUFFER_SIZE 10
 #endif
 
 char	*get_next_line(int fd);

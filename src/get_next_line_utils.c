@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/11 03:32:05 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:59:43 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		return (NULL);
 	d = (unsigned char *)dest;
 	s = (const unsigned char *)src;
-	while (n--)
+	while (n-- && *s)
 		*d++ = *s++;
 	return (dest);
 }

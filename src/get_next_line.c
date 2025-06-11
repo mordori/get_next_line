@@ -6,16 +6,14 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/11 03:31:10 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:59:22 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 static char	*ft_cpybuf(char *buf);
-static void	ft_trimbuf(char *buf, ssize_t bytes);
-
-#include <stdio.h>
+static void	ft_trimbuf(char *buf);
 
 /**
  * Returns a line read from file descriptor `fd`.
@@ -34,24 +32,22 @@ char	*get_next_line(int fd)
 	if (!line || fd < 0 || BUFFER_SIZE < 1)
 		return (free(line), NULL);
 	if (buf[0] && buf[ft_linelen(buf) - 1] == '\n')
-		return (ft_trimbuf(buf, BUFFER_SIZE), line);
+		return (ft_trimbuf(buf), line);
 	while (1)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
-		if (bytes == 0 && line[0])
-			return (ft_trimbuf(buf, bytes), line);
-		if (bytes <= 0)
+		if (bytes == -1 || (bytes == 0 && !line[0]))
 			return (free(line), NULL);
 		buf[bytes] = '\0';
 		line = ft_strjoin(line, buf);
 		if (!line)
 			return (NULL);
-		if (line[0] && line[ft_linelen(line) - 1] == '\n')
-			return (ft_trimbuf(buf, bytes), line);
+		if (line[ft_linelen(line) - 1] == '\n' || bytes == 0)
+			return (ft_trimbuf(buf), line);
 	}
 }
 
-static char	*ft_cpybuf(char *buf)
+static inline char	*ft_cpybuf(char *buf)
 {
 	size_t	line_len;
 	char	*line;
@@ -65,12 +61,15 @@ static char	*ft_cpybuf(char *buf)
 	return (line);
 }
 
-static void	ft_trimbuf(char *buf, ssize_t bytes)
+static inline void	ft_trimbuf(char *buf)
 {
+	size_t	buf_len;
 	size_t	line_len;
-	(void)bytes;
 
+	buf_len = 0;
+	while (buf[buf_len])
+		++buf_len;
 	line_len = ft_linelen(buf);
-	buf = ft_memcpy(buf, buf + line_len, BUFFER_SIZE - line_len);
-	buf[BUFFER_SIZE - line_len] = '\0';
+	buf = ft_memcpy(buf, buf + line_len, BUFFER_SIZE);
+	buf[buf_len - line_len] = '\0';
 }
