@@ -6,11 +6,31 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/11 16:26:55 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/12 00:42:30 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+/**
+ * Attempts to find the first occurrance of character `c` in `s`.
+ *
+ * @param s Source string.
+ * @param c Character to be searched for.
+ * @return Pointer to the first occurrence of `c` in `s`,
+ * or `NULL` if not found.
+ */
+char	*ft_strchr(const char *s, int c)
+{
+	if (!s)
+		return (NULL);
+	c = (unsigned char)c;
+	while (*s && (const unsigned char)*s != c)
+		++s;
+	if ((const unsigned char)*s == c)
+		return ((char *)s);
+	return (NULL);
+}
 
 size_t	ft_linelen(const char *s)
 {
