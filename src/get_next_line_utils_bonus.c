@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/16 16:16:16 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:50:02 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
  * @param s2 Source string 2.
  * @return New string, which is the result of concatenating `s1` and `s2`.
  */
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	size_t	len1;
@@ -83,11 +83,11 @@ char	*ft_strjoin(char *s1, const char *s2)
 	len2 = ft_strlen(s2);
 	str = malloc((len1 + len2 + 1) * sizeof (char));
 	if (!str)
-		return (free(s1), NULL);
+		return (free(s1), free(s2), NULL);
 	ft_memcpy(str, s1, len1);
 	ft_memcpy(&str[len1], s2, len2);
 	str[len1 + len2] = '\0';
-	return (free(s1), str);
+	return (free(s1), free(s2), str);
 }
 
 /**
