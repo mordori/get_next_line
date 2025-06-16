@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 21:29:34 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/12 00:17:31 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:12:23 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 #include <stdio.h>
 
 // MANDATORY
-/*
-#include "get_next_line.h"
-int	main(void)
-{
-	int		fd;
-	char	*str;
-	char	*file = "file.txt";
 
-	printf("\033[33mMANDATORY\033[0m\n");
-	fd = open(file, O_RDONLY);
-	while ((str = get_next_line(fd)))
-	{
-		printf("%s", str);
-		free(str);
-	}
-	close(fd);
-	return (0);
-}
-	*/
+// #include "get_next_line.h"
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
+// 	char	*file = "file_bonus_1.txt";
+
+// 	printf("\033[33mMANDATORY\033[0m\n");
+// 	fd = open(file, O_RDONLY);
+// 	while ((str = get_next_line(fd)))
+// 	{
+// 		printf("%s", str);
+// 		free(str);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
+
 
 // BONUS
+
 #include "get_next_line_bonus.h"
 int	main(void)
 {

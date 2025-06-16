@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/12 00:42:30 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:16:16 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,21 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-size_t	ft_linelen(const char *s)
+/**
+ * Calculates the amount of characters in string `s`.
+ *
+ * @param s Source string.
+ * @return The length of the string `s`.
+ */
+size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
 	if (!s)
 		return (0);
 	len = 0;
-	while (s[len])
-		if (s[len++] == '\n')
-			break ;
+	while (*s++)
+		++len;
 	return (len);
 }
 
@@ -72,15 +77,43 @@ char	*ft_strjoin(char *s1, const char *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
-	len1 = ft_linelen(s1);
-	len2 = ft_linelen(s2);
-	str = malloc(len1 + len2 + 1);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = malloc((len1 + len2 + 1) * sizeof (char));
 	if (!str)
 		return (free(s1), NULL);
 	ft_memcpy(str, s1, len1);
 	ft_memcpy(&str[len1], s2, len2);
 	str[len1 + len2] = '\0';
 	return (free(s1), str);
+}
+
+/**
+ * Allocates memory and returns a substring from the string `s`.
+ *
+ * @param s Source string.
+ * @param start Starting index for the substring in `s`.
+ * @param len Maximum length of the substring.
+ * @return New substring from `s`.
+ */
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	if (ft_strlen(s) > start)
+		while (s[start + i] && i < len)
+			++i;
+	sub = malloc((i + 1) * sizeof (char));
+	if (sub)
+	{
+		ft_memcpy(sub, &s[start], i);
+		sub[i] = '\0';
+	}
+	return (sub);
 }
