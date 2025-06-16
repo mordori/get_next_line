@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/16 17:11:15 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:54:49 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static inline char	*ft_trimbuf(char *buf);
 char	*get_next_line(int fd)
 {
 	static char	*buf[FD_MAX];
-	char	tmp[BUFFER_SIZE + 1];
+	char		tmp[BUFFER_SIZE + 1];
 	char		*line;
 	ssize_t		bytes;
 
@@ -34,11 +34,6 @@ char	*get_next_line(int fd)
 	bytes = -2;
 	while (!ft_strchr(buf[fd], '\n'))
 	{
-		if (buf[fd])
-		{
-			bytes = -1;
-			break ;
-		}
 		bytes = read(fd, tmp, BUFFER_SIZE);
 		if (bytes <= 0)
 			break ;

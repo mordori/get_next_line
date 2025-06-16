@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:49 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/16 17:11:57 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:41:38 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <unistd.h>	// read, ssize_t
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
+#  define BUFFER_SIZE 1000
 # endif
 
 # ifndef FD_MAX
-#  define FD_MAX 100000
+#  define FD_MAX 1024
 # endif
 
 char	*get_next_line(int fd);
