@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/17 15:02:59 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:45:21 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline char	*extract_line(char *buf);
 static inline void	trimbuf(char *buf);
-static inline size_t	linelen(char *buf);
+static inline size_t	linelen(const char *buf);
 
 /**
  * Returns a line read from file descriptor `fd`.
@@ -51,7 +51,7 @@ char	*get_next_line(int fd)
 }
 
 /**
- * Extracts a string with a newline from buf, NUL-terminating the result.
+ * Extracts a string with a newline from `buf`, NUL-terminating the result.
  *
  * @param buf Buffer of read characters.
  * @return Extracted string with a newline.
@@ -64,7 +64,7 @@ static inline char	*extract_line(char *buf)
 }
 
 /**
- * Removes a string with a newline from buf, then NUL-terminates the result.
+ * Removes a string with a newline from `buf`, then NUL-terminates the result.
  *
  * @param buf Buffer of read characters.
  */
@@ -85,7 +85,7 @@ static inline void	trimbuf(char *buf)
  * @return Number of characters in a buffer to an included newline,
  * or to NUL if not found.
  */
-static inline size_t	linelen(char *buf)
+static inline size_t	linelen(const char *buf)
 {
 	size_t	len_nl;
 
