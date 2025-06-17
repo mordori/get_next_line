@@ -6,14 +6,14 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/17 12:54:20 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:03:21 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static inline char		*extract_line(char *buf);
-static inline void		trimbuf(char *buf);
+static inline char	*extract_line(char *buf);
+static inline void	trimbuf(char *buf);
 static inline size_t	linelen(char *buf);
 
 /**
