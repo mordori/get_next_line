@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 21:29:34 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/16 20:46:01 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/17 04:41:29 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 // MANDATORY
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 int	main(void)
 {
 	int		fd;

@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/16 20:38:16 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/17 04:09:22 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	str = malloc((len1 + len2 + 1) * sizeof (char));
-	if (!str)
-		return (free(s1), free(s2), NULL);
-	ft_memcpy(str, s1, len1);
-	ft_memcpy(&str[len1], s2, len2);
-	str[len1 + len2] = '\0';
+	if (str)
+	{
+		ft_memcpy(str, s1, len1);
+		ft_memcpy(&str[len1], s2, len2);
+		str[len1 + len2] = '\0';
+	}
 	return (free(s1), free(s2), str);
 }
 
@@ -98,7 +99,7 @@ char	*ft_strjoin(char *s1, char *s2)
  * @param len Maximum length of the substring.
  * @return New substring from `s`.
  */
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	i;
