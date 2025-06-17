@@ -6,20 +6,12 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:54 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/17 04:09:22 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/17 12:22:44 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/**
- * Attempts to find the first occurrance of character `c` in `s`.
- *
- * @param s Source string.
- * @param c Character to be searched for.
- * @return Pointer to the first occurrence of `c` in `s`,
- * or `NULL` if not found.
- */
 char	*ft_strchr(const char *s, int c)
 {
 	if (!s)
@@ -32,12 +24,6 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-/**
- * Calculates the amount of characters in string `s`.
- *
- * @param s Source string.
- * @return The length of the string `s`.
- */
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
@@ -64,13 +50,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-/**
- * Allocates memory and copies characters from strings `s1` and `s2`.
- *
- * @param s1 Source string 1.
- * @param s2 Source string 2.
- * @return New string, which is the result of concatenating `s1` and `s2`.
- */
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
@@ -88,17 +67,11 @@ char	*ft_strjoin(char *s1, char *s2)
 		ft_memcpy(&str[len1], s2, len2);
 		str[len1 + len2] = '\0';
 	}
-	return (free(s1), free(s2), str);
+	free(s1);
+	free(s2);
+	return (str);
 }
 
-/**
- * Allocates memory and returns a substring from the string `s`.
- *
- * @param s Source string.
- * @param start Starting index for the substring in `s`.
- * @param len Maximum length of the substring.
- * @return New substring from `s`.
- */
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*sub;
