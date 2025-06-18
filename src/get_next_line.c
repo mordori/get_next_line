@@ -6,12 +6,13 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/17 21:45:09 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:59:55 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static inline char	*join_lines(char *line, char *buf);
 static inline char	*extract_line(char *buf);
 static inline void	trimbuf(char *buf);
 static inline size_t	linelen(const char *buf);
@@ -42,7 +43,7 @@ char	*get_next_line(int fd)
 		if (bytes == 0)
 			break ;
 		buf[bytes] = '\0';
-		line = ft_strjoin(line, extract_line(buf));
+		line = join_lines(line, buf);
 		if (!line)
 			return (NULL);
 	}
@@ -51,10 +52,26 @@ char	*get_next_line(int fd)
 }
 
 /**
- * Extracts a string with a newline from `buf`, NUL-terminating the result.
+ * Joins an extracted string from the `buf` to the line that has no newline yet.
  *
  * @param buf Buffer of read characters.
  * @return Extracted string with a newline.
+ */
+static inline char	*join_lines(char *line, char *buf)
+{
+	char	*new_line;
+
+	new_line =  extract_line(buf);
+	if (!new_line)
+		return (NULL);
+	return (ft_strjoin(line, new_line));
+}
+
+/**
+ * Extracts a string from `buf`, NUL-terminating the result.
+ *
+ * @param buf Buffer of read characters.
+ * @return Extracted string.
  */
 static inline char	*extract_line(char *buf)
 {
