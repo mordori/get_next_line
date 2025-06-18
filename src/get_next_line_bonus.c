@@ -6,14 +6,14 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/18 19:00:03 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:07:31 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static inline char	*join_lines(char *line, char *buf);
-static inline char	*extract_line(char *buf);
+static inline char	*join_lines(char *line, const char *buf);
+static inline char	*extract_line(const char *buf);
 static inline void	trimbuf(char *buf);
 static inline size_t	linelen(const char *buf);
 
@@ -57,7 +57,7 @@ char	*get_next_line(int fd)
  * @param buf Buffer of read characters.
  * @return Extracted string with a newline.
  */
-static inline char	*join_lines(char *line, char *buf)
+static inline char	*join_lines(char *line, const char *buf)
 {
 	char	*new_line;
 
@@ -73,7 +73,7 @@ static inline char	*join_lines(char *line, char *buf)
  * @param buf Buffer of read characters.
  * @return Extracted string.
  */
-static inline char	*extract_line(char *buf)
+static inline char	*extract_line(const char *buf)
 {
 	if (!buf[0])
 		return (NULL);
