@@ -1,2 +1,7 @@
-a.out
+#.gitignore
 .vscode/
+dep/
+obj/
+*.o
+*.d
+a.out

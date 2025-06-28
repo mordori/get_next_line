@@ -1,4 +1,0 @@
-line1: 123
-line2: abc
-line3: 456
-line4: def
