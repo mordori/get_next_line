@@ -1,0 +1,4 @@
+line 1: a
+line 2: bc
+line 3: def
+line 4: ghij

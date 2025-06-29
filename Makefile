@@ -6,12 +6,12 @@
 #    By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/28 23:13:38 by myli-pen          #+#    #+#              #
-#    Updated: 2025/06/28 23:44:23 by myli-pen         ###   ########.fr        #
+#    Updated: 2025/06/29 08:47:49 by myli-pen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .DEFAULT_GOAL = all
-NAME = a.out
+NAME = program
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 MAKEFLAGS += --no-print-directory
@@ -31,10 +31,8 @@ $(DIR_OBJ):
 
 $(NAME): $(OBJS)
 	@$(CC) -g $(CFLAGS) $(OBJS) main.c -o $(NAME)
-	@echo "\033[1;33m [✔] $(NAME) created \033[0m"
-	@echo ""
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
-	--track-origins=yes ./a.out
+	@echo "\033[1;33m [✔] $(NAME) created \033[0m\n"
+	./program
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ \
@@ -47,7 +45,8 @@ clean:
 	@echo "\033[1;31m [-]\033[0m removed ./dep/"
 
 fclean: clean
-	@rm -rf a.out
+	@rm -rf $(NAME)
+	@echo "\033[1;31m [-]\033[0m removed $(NAME)"
 
 re: fclean all
 
