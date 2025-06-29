@@ -7,14 +7,13 @@
 
 > [!TIP]
 > ## How to use
- - To compile and run the tests in your terminal with the command, using pre-defined buffer size and amount of file descriptors:
+ - To compile and run the program in your terminal with the command, using pre-defined buffer size and amount of file descriptors:
  ``` Makefile
  make
  ```
- - To modify the buffer size or amount of open file descriptors, replace `'value'` with desired amounts and compile in your terminal with the command:
+ - To modify the buffer size or amount of open file descriptors, replace `'value'` with desired amounts. Note that minimum values are BUFFER_SIZE=1 and FD_MAX=3. Compile in your terminal with the command:
  ``` Makefile
- cc -g -Wall -Wextra -Werror src/get_next_line_bonus.c src/get_next_line_utils_bonus.c main.c \
--D BUFFER_SIZE='value' -D FD_MAX='value' && ./a.out
+ make -D BUFFER_SIZE='value' -D FD_MAX='value'
  ```
  - To delete all of the compiled files, use:
  ``` Makefile
