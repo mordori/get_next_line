@@ -6,7 +6,7 @@
 #    By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/28 23:13:38 by myli-pen          #+#    #+#              #
-#    Updated: 2025/06/29 08:47:49 by myli-pen         ###   ########.fr        #
+#    Updated: 2025/06/29 09:08:51 by myli-pen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ $(DIR_OBJ):
 $(NAME): $(OBJS)
 	@$(CC) -g $(CFLAGS) $(OBJS) main.c -o $(NAME)
 	@echo "\033[1;33m [✔] $(NAME) created \033[0m\n"
-	./program
+	./$(NAME)
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ \
