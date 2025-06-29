@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:49 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/17 04:11:06 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:01:31 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 # ifndef FD_MAX
-#  define FD_MAX 8
+#  define FD_MAX 5
 # endif
 
 char	*get_next_line(int fd);

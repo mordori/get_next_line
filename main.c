@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 21:29:34 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/29 08:53:37 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/29 09:24:45 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(void)
 
 	fd_1 = open(file_A, O_RDONLY);
 	fd_2 = open(file_B, O_RDONLY);
+	printf("BUFFER_SIZE = %d\n", BUFFER_SIZE);
+	printf("FD_MAX = %d\n", FD_MAX);
 	while (1)
 	{
 		str_1 = get_next_line(fd_1);

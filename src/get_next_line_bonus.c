@@ -6,7 +6,7 @@
 /*   By: myli-pen <myli-pen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:14:52 by myli-pen          #+#    #+#             */
-/*   Updated: 2025/06/18 19:07:31 by myli-pen         ###   ########.fr       */
+/*   Updated: 2025/06/29 16:03:00 by myli-pen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	ssize_t		bytes;
 
-	if (fd < 0 || fd > FD_MAX || BUFFER_SIZE < 1)
+	if (fd < 0 || fd > FD_MAX || BUFFER_SIZE < 1 || FD_MAX < 3)
 		return (NULL);
 	line = extract_line(buf[fd]);
 	if (buf[fd][0] && !line)
