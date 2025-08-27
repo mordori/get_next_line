@@ -1,6 +1,6 @@
 # get_next_line
 ## ✨ Features
-Function that returns a line read from a file descriptor. 
+**Function that returns a line read from a file descriptor.**
 
 Libft was not authorized for this project, but most of the utility functions are almost identical to the ones in the library.
 
